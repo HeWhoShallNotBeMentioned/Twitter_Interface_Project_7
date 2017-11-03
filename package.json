@@ -1,0 +1,11 @@
+{
+  "name": "twitter_interface_project_7",
+  "version": "1.0.0",
+  "description": "Project 7 in Treehouse Fullstack JS  Tech Degree",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "HeWhoShallNotBeMentioned",
+  "license": "MIT"
+}
