@@ -5,10 +5,10 @@ const Twit = require('twit');
 const config = require('./../config');
 
 const T = new Twit(config);
-
+app.set('view engine', 'pug');
 
 app.get('/', function (request, response) {
-  response.send('Hello World!');
+  response.render('index');
 });
 
 T.get('account/verify_credentials', function (err, data, response) {
