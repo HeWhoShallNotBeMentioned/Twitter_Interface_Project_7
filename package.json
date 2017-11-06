@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/HeWhoShallNotBeMentioned/Twitter_Interface_Project_7#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "nodemon": "^1.12.1",
     "pug": "^2.0.0-rc.4",
