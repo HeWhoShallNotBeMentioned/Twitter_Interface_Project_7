@@ -11,7 +11,10 @@ app.use(bodyParser.json());
 app.set('view engine', 'pug');
 
 let profileInfo = {
-  bannerImg: ""
+  bannerImg: "",
+  profileImg: "",
+  screenName: "",
+  name: ""
 };
 
 T.get('account/verify_credentials', function (err, data, response) {
@@ -24,20 +27,25 @@ T.get('account/verify_credentials', function (err, data, response) {
     //console.log('data', data);
     //console.log("img banner ", data.profile_banner_url);
     profileInfo.bannerImg = data.profile_banner_url;
+    profileInfo.profileImg = data.profile_image_url;
+    profileInfo.screenName = '@' + data.screen_name;
+    profileInfo.name = data.name;
     //response.send('<img src=' + data.profile_banner_url + 'alt="banner">');
     //response.send("meow");
     //response.locals.banner = data.profile_banner_url;
     //console.log(profileInfo.bannerImg);
   });
 
+  T.get('friends/list', { count: 5 },  function (err, data, response) {
+    console.log('friends/list', data);
+  });
+
 app.get('/', function (request, response) {
-  console.log("profileInfo ", profileInfo);
-  response.render('index', profileInfo);
+  console.log("profileInfo ",  profileInfo);
+  response.render('index', {"profileInfo": profileInfo});
 });
 
-// T.get('followers/ids',  function (err, data, response) {
-//   console.log('followers/ids', data);
-// });
+
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
