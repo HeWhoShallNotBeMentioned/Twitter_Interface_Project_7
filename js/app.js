@@ -8,6 +8,8 @@ const config = require('./../config');
 const T = new Twit(config);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+app.use('/static', express.static('public'));
 app.set('view engine', 'pug');
 
 let profileInfo = {
