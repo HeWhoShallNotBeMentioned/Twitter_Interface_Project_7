@@ -23,7 +23,7 @@ html(lang='en')
     link(rel='stylesheet', href='/static/css/global.css')
 
   body
-  header.circle--header
+  header(style= 'background-image: url(' + profileInfo.bannerImg + ')').circle--header
     .bounds
       .circle--fluid
         .circle--fluid--cell
@@ -41,5 +41,5 @@ html(lang='en')
               li
                 a Sign Out
 
-      
+    //
       img(src= profileInfo.bannerImg)
