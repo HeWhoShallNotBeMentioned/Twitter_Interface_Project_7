@@ -16,7 +16,9 @@ let profileInfo = {
   bannerImg: "",
   profileImg: "",
   screenName: "",
-  name: ""
+  name: "",
+  friends: [],
+  friendsCount: ""
 };
 
 T.get('account/verify_credentials', function (err, data, response) {
@@ -26,24 +28,21 @@ T.get('account/verify_credentials', function (err, data, response) {
     // See https://github.com/ttezel/twit#tgetpath-params-callback
     // for details.
 
-    //console.log('data', data);
-    //console.log("img banner ", data.profile_banner_url);
     profileInfo.bannerImg = data.profile_banner_url;
     profileInfo.profileImg = data.profile_image_url;
     profileInfo.screenName = '@' + data.screen_name;
     profileInfo.name = data.name;
-    //response.send('<img src=' + data.profile_banner_url + 'alt="banner">');
-    //response.send("meow");
-    //response.locals.banner = data.profile_banner_url;
-    //console.log(profileInfo.bannerImg);
+    profileInfo.friendsCount = data.friends_count;
+    //console.log("profileInfo  ", data);
   });
 
   T.get('friends/list', { count: 5 },  function (err, data, response) {
-    console.log('friends/list', data);
+    //console.log('friends/list', data);
+    profileInfo.friends = data;
   });
 
 app.get('/', function (request, response) {
-  console.log("profileInfo ",  profileInfo);
+  //console.log("profileInfo ",  profileInfo);
   response.render('index', {"profileInfo": profileInfo});
 });
 
