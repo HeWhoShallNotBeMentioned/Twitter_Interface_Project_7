@@ -17,7 +17,13 @@ let profileInfo = {
   profileImg: "",
   screenName: "",
   name: "",
-  friends: [],
+  friends: [
+    { name: "",
+      screen_name: "",
+      profile_image_url: "",
+      profile_background_image_url: ""
+    }
+  ],
   friendsCount: ""
 };
 
@@ -37,12 +43,17 @@ T.get('account/verify_credentials', function (err, data, response) {
   });
 
   T.get('friends/list', { count: 5 },  function (err, data, response) {
-    //console.log('friends/list', data);
-    profileInfo.friends = data;
+    console.log('friends/list', data);
+    for (let a = 0; a < 5; a++) {
+      profileInfo.friends.name[a] = data.users[a].name;
+      profileInfo.friends.screen_name[a] = data.users[a].screen_name;
+      profileInfo.friends.profile_image_url[a] = data.users[a].profile_image_url;
+      profileInfo.friends.profile_background_image_url[a] = data.users[a].profile_background_image_url;
+    }
   });
 
 app.get('/', function (request, response) {
-  //console.log("profileInfo ",  profileInfo);
+  console.log("profileInfo ",  profileInfo);
   response.render('index', {"profileInfo": profileInfo});
 });
 
