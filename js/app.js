@@ -29,7 +29,7 @@ let credentials = (req, res, next) => {
 let timeline = (req, res, next) => {
   T.get('statuses/user_timeline', {screen_name: "cunderwoodmn", count: 5}, function(err, data, response) {
     req.tweets = data;
-    console.log("id ", req.screenName2);
+    //console.log("id ", req.screenName2);
     console.log("req.tweets ",data);
   });
   setTimeout(next, 1000);
