@@ -73,11 +73,12 @@ html(lang='en')
       .grid-33
        .app--section
          ul.app--tweet--list
+          each tweet in tweets
            li
              strong.app--tweet--timestamp 4h
              |
              a.app--tweet--author
-               .app--avatar(style='background-image: url(images/f-spore.png)')
+               .app--avatar(style='background-image: url(' + tweet.profile_image_url + ')')
                  img(src='images/f-spore.png')
                |
                h4 Jill Spore

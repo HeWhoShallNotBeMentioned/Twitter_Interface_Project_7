@@ -12,45 +12,37 @@ app.use(bodyParser.json());
 app.use('/static', express.static('public'));
 app.set('view engine', 'pug');
 
-// let profileInfo = {
-//   bannerImg: "",
-//   profileImg: "",
-//   screenName: "",
-//   name: "",
-//   friends: [
-//     { name: "",
-//       screen_name: "",
-//       profile_image_url: "",
-//       profile_background_image_url: ""
-//     }
-//   ],
-//   friendsCount: ""
-// };
 let credentials = (req, res, next) => {
-  T.get('account/verify_credentials', function (err, data, response) {
-      // `result` is an Object with keys "data" and "resp".
-      // `data` and `resp` are the same objects as the ones passed
-      // to the callback.
-      // See https://github.com/ttezel/twit#tgetpath-params-callback
-      // for details.
-      console.log("data.profile_banner_url ",data.profile_banner_url);
+  T.get('account/verify_credentials', {skip_status: false}, function (err, data, response) {
       req.bannerImg = data.profile_banner_url;
       req.profileImg = data.profile_image_url;
       req.screenName = '@' + data.screen_name;
+      req.screenName2 = data.screen_name;
+      req.userId = data.id_str;
       req.name = data.name;
       req.friendsCount = data.friends_count;
-      //console.log("profileInfo  ", data);
+    //console.log("profileInfo  ", data);
     });
     setTimeout(next, 1000);
 };
+
+let timeline = (req, res, next) => {
+  T.get('statuses/user_timeline', {screen_name: "cunderwoodmn", count: 5}, function(err, data, response) {
+    req.tweets = data;
+    console.log("id ", req.screenName2);
+    console.log("req.tweets ",data);
+  });
+  setTimeout(next, 1000);
+};
+
 let friends = (req, res, next) => {
   T.get('friends/list', { count: 5 },  function (err, data, response) {
-    console.log('friends/list', data);
+    //console.log('friends/list', data);
       req.friends = data.users;
   });
   setTimeout(next, 1000);
 };
-  app.use(credentials, friends);
+  app.use(credentials, timeline, friends);
 
 app.get('/', function (req, res) {
   //console.log("profileInfo ",  profileInfo);
@@ -60,7 +52,8 @@ app.get('/', function (req, res) {
   req.params.name = req.name;
   req.params.friendsCount = req.friendsCount;
   req.params.friends = req.friends;
-  console.log(req.params);
+  req.params.tweets = req.tweets;
+  //console.log(req.params);
   res.render('index', req.params);
 });
 
