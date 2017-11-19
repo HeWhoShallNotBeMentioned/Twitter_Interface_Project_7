@@ -51,6 +51,10 @@ app.set('view engine', 'pug');
       setTimeout(next, 1000);
   };
 
+  let tweet = (req, res, next) => {
+    T.post();
+  };
+
   app.use(credentials, timeline, friends, messages);
 
 app.get('/', function (req, res) {
