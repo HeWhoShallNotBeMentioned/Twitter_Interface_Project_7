@@ -68,6 +68,11 @@ app.get('/', function (req, res) {
   res.render('index', req.params);
 });
 
+  app.use(function(req, res) {
+    res.status(400);
+    res.render('404.pug', {title: '404: File Not Found'});
+  });
+
 
 
 app.listen(3000, function () {
