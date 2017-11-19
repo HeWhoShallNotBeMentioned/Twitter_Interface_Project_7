@@ -12,6 +12,9 @@ app.use(bodyParser.json());
 app.use('/static', express.static('public'));
 app.set('view engine', 'pug');
 
+// const mainRoutes = require('./../routes/index.js');
+// app.use(mainRoutes);
+
   let credentials = (req, res, next) => {
     T.get('account/verify_credentials', {skip_status: false}, function (err, data, response) {
         req.bannerImg = data.profile_banner_url;
@@ -57,20 +60,21 @@ app.set('view engine', 'pug');
 
   app.use(credentials, timeline, friends, messages);
 
-app.get('/', function (req, res) {
-  //console.log("profileInfo ",  profileInfo);
-  req.params.bannerImg = req.bannerImg;
-  req.params.profileImg = req.profileImg;
-  req.params.screenName = req.screenName;
-  req.params.screenName2 = req.screenName2;
-  req.params.name = req.name;
-  req.params.friendsCount = req.friendsCount;
-  req.params.friends = req.friends;
-  req.params.tweets = req.tweets;
-  req.params.messages = req.messages;
-  //console.log(req.params);
-  res.render('index', req.params);
-});
+  app.get('/', function (req, res) {
+    //console.log("profileInfo ",  profileInfo);
+    req.params.bannerImg = req.bannerImg;
+    req.params.profileImg = req.profileImg;
+    req.params.screenName = req.screenName;
+    req.params.screenName2 = req.screenName2;
+    req.params.name = req.name;
+    req.params.friendsCount = req.friendsCount;
+    req.params.friends = req.friends;
+    req.params.tweets = req.tweets;
+    req.params.messages = req.messages;
+    //console.log(req.params);
+    res.render('index', req.params);
+  });
+
 
   app.use(function(req, res) {
     res.status(400);
