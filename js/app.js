@@ -48,14 +48,16 @@ app.set('view engine', 'pug');
 
   let messages = (req, res, next) => {
       T.get('direct_messages', { count: 5 },  function (err, data, response) {
-        console.log('direct_messages  ', data);
+        //console.log('direct_messages  ', data);
         req.messages = data;
       });
       setTimeout(next, 1000);
   };
 
   let tweet = (req, res, next) => {
-    T.post();
+    T.post("statuses/update", {tweetName: tweetSent},function(err, data, response) {
+
+    });
   };
 
   app.use(credentials, timeline, friends, messages);
