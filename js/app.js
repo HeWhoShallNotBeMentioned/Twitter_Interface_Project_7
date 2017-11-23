@@ -55,7 +55,8 @@ app.set('view engine', 'pug');
   };
 
   let tweet = (req, res, next) => {
-    T.post("statuses/update", {tweetName: tweetSent},function(err, data, response) {
+    console.log("tweetSent ", tweetSent);
+    T.post("statuses/update", {tweetName: req.params.tweetSent},function(err, data, response) {
 
     });
   };
