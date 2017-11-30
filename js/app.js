@@ -69,26 +69,16 @@ app.set('view engine', 'pug');
 
 
   app.get('/', function (req, res) {
-    //console.log("profileInfo ",  profileInfo);
-    bannerImg = req.bannerImg;
-    profileImg = req.profileImg;
-    screenName = req.screenName;
-    screenName2 = req.screenName2;
-    name = req.name;
-    friendsCount = req.friendsCount;
-    friends = req.friends;
-    tweets = req.tweets;
-    messages = req.messages;
     res.render('index', {
-      bannerImg: bannerImg,
-      profileImg: profileImg,
-      screenName: screenName,
-      screenName2: screenName2,
-      name: name,
-      friendsCount: friendsCount,
-      friends: friends,
-      tweets: tweets,
-      messages: messages
+      bannerImg: req.bannerImg,
+      profileImg: req.profileImg,
+      screenName: req.screenName,
+      screenName2: req.screenName2,
+      name: req.name,
+      friendsCount: req.friendsCount,
+      friends: req.friends,
+      tweets: req.tweets,
+      messages: req.messages
     });
   });
 
