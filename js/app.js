@@ -3,7 +3,9 @@ const express = require('express');
 const Twit = require('twit');
 const bodyParser = require('body-parser');
 const app = express();
-const config = require('./../config');
+const path = require("path");
+const config = require(__dirname + "./../config.js");
+
 app.locals.moment = require('moment');
 const T = new Twit(config);
 app.use(bodyParser.urlencoded({extended: true}));
@@ -15,7 +17,7 @@ app.set('view engine', 'pug');
 // const mainRoutes = require('./../routes/index.js');
 // app.use(mainRoutes);
 
-  let credentials = (req, res, next) => {
+  app.use( (req, res, next) => {
     T.get('account/verify_credentials', {skip_status: false}, function (err, data, response) {
         req.bannerImg = data.profile_banner_url;
         req.profileImg = data.profile_image_url;
@@ -26,42 +28,45 @@ app.set('view engine', 'pug');
         req.friendsCount = data.friends_count;
       //console.log("profileInfo  ", data);
       });
-      setTimeout(next, 1000);
-  };
+      // setTimeout(next, 1000);
+      next();
+      return;
+    });
 
-  let timeline = (req, res, next) => {
+    app.use ((req, res, next) => {
     T.get('statuses/user_timeline', {screen_name: "cunderwoodmn", count: 5}, function(err, data, response) {
       req.tweets = data;
-      //console.log("id ", req.screenName2);
       //console.log("req.tweets ",data);
     });
-    setTimeout(next, 1000);
-  };
+    next();
+    return;
+  });
 
-  let friends = (req, res, next) => {
+  app.use((req, res, next) => {
     T.get('friends/list', { count: 5 },  function (err, data, response) {
       //console.log('friends/list', data);
         req.friends = data.users;
     });
-    setTimeout(next, 1000);
-  };
+    next();
+    return;
+  });
 
-  let messages = (req, res, next) => {
+  app.use((req, res, next) => {
       T.get('direct_messages', { count: 5 },  function (err, data, response) {
         //console.log('direct_messages  ', data);
         req.messages = data;
       });
-      setTimeout(next, 1000);
-  };
+      setTimeout(next, 500);
+  });
 
-  let tweet = (req, res, next) => {
-    console.log("tweetSent ", tweetSent);
-    T.post("statuses/update", {tweetName: req.params.tweetSent},function(err, data, response) {
+  // let tweet = (req, res, next) => {
+  //   console.log("tweetSent ", tweetSent);
+  //   T.post("statuses/update", {tweetName: req.params.tweetSent},function(err, data, response) {
+  //
+  //   });
+  // };
 
-    });
-  };
 
-  app.use(credentials, timeline, friends, messages);
 
   app.get('/', function (req, res) {
     //console.log("profileInfo ",  profileInfo);
@@ -74,7 +79,6 @@ app.set('view engine', 'pug');
     req.params.friends = req.friends;
     req.params.tweets = req.tweets;
     req.params.messages = req.messages;
-    //console.log(req.params);
     res.render('index', req.params);
   });
 
