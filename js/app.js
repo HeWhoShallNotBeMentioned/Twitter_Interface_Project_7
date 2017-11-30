@@ -8,7 +8,7 @@ const config = require(__dirname + "./../config.js");
 
 app.locals.moment = require('moment');
 const T = new Twit(config);
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 app.use('/static', express.static('public'));
@@ -59,12 +59,25 @@ app.set('view engine', 'pug');
       setTimeout(next, 500);
   });
 
-  // let tweet = (req, res, next) => {
-  //   console.log("tweetSent ", tweetSent);
-  //   T.post("statuses/update", {tweetName: req.params.tweetSent},function(err, data, response) {
-  //
-  //   });
-  // };
+  app.use((req, res, next) => {
+    console.log("tweetName ", req.body.tweetName);
+    T.post("statuses/update", {status: req.body.tweetName},function(err, data, response) {
+
+    });
+    res.render('index', {
+      bannerImg: req.bannerImg,
+      profileImg: req.profileImg,
+      screenName: req.screenName,
+      screenName2: req.screenName2,
+      name: req.name,
+      friendsCount: req.friendsCount,
+      friends: req.friends,
+      tweets: req.tweets,
+      messages: req.messages
+    }
+  );
+    setTimeout(next, 500);
+  });
 
 
 
