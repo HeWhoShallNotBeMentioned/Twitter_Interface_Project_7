@@ -70,16 +70,26 @@ app.set('view engine', 'pug');
 
   app.get('/', function (req, res) {
     //console.log("profileInfo ",  profileInfo);
-    req.params.bannerImg = req.bannerImg;
-    req.params.profileImg = req.profileImg;
-    req.params.screenName = req.screenName;
-    req.params.screenName2 = req.screenName2;
-    req.params.name = req.name;
-    req.params.friendsCount = req.friendsCount;
-    req.params.friends = req.friends;
-    req.params.tweets = req.tweets;
-    req.params.messages = req.messages;
-    res.render('index', req.params);
+    bannerImg = req.bannerImg;
+    profileImg = req.profileImg;
+    screenName = req.screenName;
+    screenName2 = req.screenName2;
+    name = req.name;
+    friendsCount = req.friendsCount;
+    friends = req.friends;
+    tweets = req.tweets;
+    messages = req.messages;
+    res.render('index', {
+      bannerImg: bannerImg,
+      profileImg: profileImg,
+      screenName: screenName,
+      screenName2: screenName2,
+      name: name,
+      friendsCount: friendsCount,
+      friends: friends,
+      tweets: tweets,
+      messages: messages
+    });
   });
 
 
