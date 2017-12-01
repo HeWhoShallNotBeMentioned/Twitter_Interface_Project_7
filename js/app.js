@@ -3,15 +3,18 @@ const express = require('express');
 const Twit = require('twit');
 const bodyParser = require('body-parser');
 const app = express();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 const path = require("path");
 const config = require(__dirname + "./../config.js");
+const T = new Twit(config);
 
 app.locals.moment = require('moment');
-const T = new Twit(config);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
-app.use('/static', express.static('public'));
+//app.use(express.static(path.join(__dirname, 'public')));
+app.use('/static',express.static('public'));
+//app.use('/static', express.static('public'));
 app.set('view engine', 'pug');
 
 // const mainRoutes = require('./../routes/index.js');
