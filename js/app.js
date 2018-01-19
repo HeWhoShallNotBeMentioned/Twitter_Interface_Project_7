@@ -59,17 +59,17 @@ app.set('view engine', 'pug');
     //console.log("tweetName ", req.body.tweetName);
     T.post("statuses/update", {status: req.body.tweetName},function(err, data, response) {
   });
-    // res.render('index' , {
-    //       bannerImg: req.bannerImg,
-    //       profileImg: req.profileImg,
-    //       screenName: req.screenName,
-    //       screenName2: req.screenName2,
-    //       name: req.name,
-    //       friendsCount: req.friendsCount,
-    //       friends: req.friends,
-    //       tweets: req.tweets,
-    //       messages: req.messages
-    //     });
+    res.render('index' , {
+          bannerImg: req.bannerImg,
+          profileImg: req.profileImg,
+          screenName: req.screenName,
+          screenName2: req.screenName2,
+          name: req.name,
+          friendsCount: req.friendsCount,
+          friends: req.friends,
+          tweets: req.tweets,
+          messages: req.messages
+        });
     setTimeout(next, 500);
   });
 
