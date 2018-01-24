@@ -70,6 +70,7 @@ app.set('view engine', 'pug');
           tweets: req.tweets,
           messages: req.messages
         });
+
     setTimeout(next, 500);
   });
 
@@ -85,6 +86,7 @@ app.set('view engine', 'pug');
       tweets: req.tweets,
       messages: req.messages
     });
+    //console.log("tweetName  ", req.body.tweetName);
   });
 
 
