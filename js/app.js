@@ -22,7 +22,6 @@ app.set('view engine', 'pug');
         req.userId = data.id_str;
         req.name = data.name;
         req.friendsCount = data.friends_count;
-      //console.log("profileInfo  ", data);
       });
       next();
       return;
@@ -31,14 +30,12 @@ app.set('view engine', 'pug');
   app.use ((req, res, next) => {
     T.get('statuses/user_timeline', {screen_name: req.screenName, count: 5}, function(err, data, response) {
       req.tweets = data;
-      //console.log("req.tweets ",data);
       return next();
     });
   });
 
   app.use((req, res, next) => {
     T.get('friends/list', { count: 5 },  function (err, data, response) {
-      //console.log('friends/list', data);
         req.friends = data.users;
         return next();
     });
@@ -48,7 +45,6 @@ app.set('view engine', 'pug');
 
   app.use((req, res, next) => {
     T.get('direct_messages', { count: 5 },  function (err, data, response) {
-      //console.log('direct_messages  ', data);
       req.messages = data;
 
     });
@@ -56,7 +52,6 @@ app.set('view engine', 'pug');
   });
 
   app.use((req, res, next) => {
-    //console.log("tweetName ", req.body.tweetName);
     T.post("statuses/update", {status: req.body.tweetName},function(err, data, response) {
   });
     res.render('index' , {
