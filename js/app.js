@@ -24,7 +24,6 @@ app.set('view engine', 'pug');
         req.friendsCount = data.friends_count;
       //console.log("profileInfo  ", data);
       });
-
       next();
       return;
     });
@@ -33,15 +32,15 @@ app.set('view engine', 'pug');
     T.get('statuses/user_timeline', {screen_name: "cunderwoodmn", count: 5}, function(err, data, response) {
       req.tweets = data;
       //console.log("req.tweets ",data);
+      return next();
     });
-    next();
-    return;
   });
 
   app.use((req, res, next) => {
     T.get('friends/list', { count: 5 },  function (err, data, response) {
       //console.log('friends/list', data);
         req.friends = data.users;
+        return next();
     });
     next();
     return;
@@ -51,6 +50,7 @@ app.set('view engine', 'pug');
     T.get('direct_messages', { count: 5 },  function (err, data, response) {
       //console.log('direct_messages  ', data);
       req.messages = data;
+
     });
     setTimeout(next, 500);
   });
@@ -86,7 +86,6 @@ app.set('view engine', 'pug');
       tweets: req.tweets,
       messages: req.messages
     });
-    //console.log("tweetName  ", req.body.tweetName);
   });
 
 
