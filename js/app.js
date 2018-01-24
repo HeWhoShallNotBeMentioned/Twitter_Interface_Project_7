@@ -29,7 +29,7 @@ app.set('view engine', 'pug');
     });
 
   app.use ((req, res, next) => {
-    T.get('statuses/user_timeline', {screen_name: "cunderwoodmn", count: 5}, function(err, data, response) {
+    T.get('statuses/user_timeline', {screen_name: req.screenName, count: 5}, function(err, data, response) {
       req.tweets = data;
       //console.log("req.tweets ",data);
       return next();
