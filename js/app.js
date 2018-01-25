@@ -15,6 +15,9 @@ app.set('view engine', 'pug');
 
   app.use( (req, res, next) => {
     T.get('account/verify_credentials', {skip_status: false}, function (err, data, response) {
+      if(err) {
+        return next(err);
+      }
         req.bannerImg = data.profile_banner_url;
         req.profileImg = data.profile_image_url;
         req.screenName = '@' + data.screen_name;
@@ -28,6 +31,9 @@ app.set('view engine', 'pug');
 
   app.use ((req, res, next) => {
     T.get('statuses/user_timeline', {screen_name: req.screenName, count: 5}, function(err, data, response) {
+      if(err) {
+        return next(err);
+      }
       req.tweets = data;
       return next();
     });
@@ -35,6 +41,9 @@ app.set('view engine', 'pug');
 
   app.use((req, res, next) => {
     T.get('friends/list', { count: 5 },  function (err, data, response) {
+      if(err) {
+        return next(err);
+      }
         req.friends = data.users;
         return next();
     });
@@ -42,6 +51,9 @@ app.set('view engine', 'pug');
 
   app.use((req, res, next) => {
     T.get('direct_messages', { count: 5 },  function (err, data, response) {
+      if(err) {
+        return next(err);
+      }
       req.messages = data;
       return next();
     });
@@ -67,6 +79,7 @@ app.set('view engine', 'pug');
 
   app.get('/', function (req, res) {
     res.render('index', {
+
       bannerImg: req.bannerImg,
       profileImg: req.profileImg,
       screenName: req.screenName,
