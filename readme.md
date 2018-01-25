@@ -6,7 +6,7 @@
 
 ## Description
 
-_{ Twitter app that uses a real user account. It uses credentials supplied in the config.js file (sample attached). Pulls down account 5 most recents tweets, friends, and direct messages. The text box on the bottom submits a new text. The application does automatically reload after the tweet is sent. Many of the other details that show do not work such as the character count on the tweet message field on the bottom of the page.   }_
+_{ Twitter app that uses a real user account. It uses credentials supplied in the config.js file (sample attached). Pulls down account 5 most recents tweets, friends, and direct messages. The text box on the bottom has been disabled. Many of the other details that show do not work such as the character count on the tweet message field on the bottom of the page.   }_
 
 ## Setup/Installation Requirements
 
@@ -19,7 +19,7 @@ _{If the config credentials are good, you should see the tweets, friends, and dm
 
 ## Known Bugs
 
-_{The number of times that the tweet api can be contacted is limited which can take the application off line. One the page is loaded, reloaded the page causes more calls to the api. When a tweet is sent it causes the page to reload for example.}_
+_{The number of times that the tweet api can be contacted is limited which can take the application off line. Once the page is loaded, reloaded the page causes more calls to the api. }_
 
 ## Support and contact details
 
