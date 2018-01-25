@@ -3,11 +3,10 @@
     .circle--fluid
       .circle--fluid--cell.circle--fluid--primary.align-bottom.app--tweet--post
         .app--avatar(style='background-image: url(' + profileImg + ')')
-          img(src='images/m-spore.png')
         |
         textarea#tweet-textarea.circle--textarea--input(type='text',  name='tweetName', placeholder="What's happening?" value='')
-        |
-        strong#tweet-char.app--tweet--char 140
+
+        strong#tweet-char.app--tweet--char 280
       |
       .circle--fluid--cell.align-bottom
-        button.button-primary Tweet
+        button(class=['button-primary'] disabled) Tweet
