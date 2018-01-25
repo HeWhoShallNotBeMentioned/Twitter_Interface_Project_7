@@ -22,9 +22,8 @@ app.set('view engine', 'pug');
         req.userId = data.id_str;
         req.name = data.name;
         req.friendsCount = data.friends_count;
+        return next();
       });
-      next();
-      return;
     });
 
   app.use ((req, res, next) => {
@@ -39,35 +38,32 @@ app.set('view engine', 'pug');
         req.friends = data.users;
         return next();
     });
-    next();
-    return;
   });
 
   app.use((req, res, next) => {
     T.get('direct_messages', { count: 5 },  function (err, data, response) {
       req.messages = data;
-
+      return next();
     });
-    setTimeout(next, 500);
   });
 
-  app.use((req, res, next) => {
-    T.post("statuses/update", {status: req.body.tweetName},function(err, data, response) {
-  });
-    res.render('index' , {
-          bannerImg: req.bannerImg,
-          profileImg: req.profileImg,
-          screenName: req.screenName,
-          screenName2: req.screenName2,
-          name: req.name,
-          friendsCount: req.friendsCount,
-          friends: req.friends,
-          tweets: req.tweets,
-          messages: req.messages
-        });
-
-    setTimeout(next, 500);
-  });
+  // app.use((req, res, next) => {
+  //   T.post("statuses/update", {status: req.body.tweetName},function(err, data, response) {
+  // });
+  //   res.render('index' , {
+  //         bannerImg: req.bannerImg,
+  //         profileImg: req.profileImg,
+  //         screenName: req.screenName,
+  //         screenName2: req.screenName2,
+  //         name: req.name,
+  //         friendsCount: req.friendsCount,
+  //         friends: req.friends,
+  //         tweets: req.tweets,
+  //         messages: req.messages
+  //       });
+  //
+  //   setTimeout(next, 500);
+  //});
 
   app.get('/', function (req, res) {
     res.render('index', {
@@ -91,7 +87,7 @@ app.set('view engine', 'pug');
 
   app.use(function(error, req, res, next) {
     res.status(500);
-    res.render('500.pug', {title:'500: Internal Server Error', error: error});
+    res.render('500.pug', {title:'500: Internal Server Error you dopey dope!', error: error});
   });
 
 app.listen(3000, function () {
