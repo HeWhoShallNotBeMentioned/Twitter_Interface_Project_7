@@ -103,6 +103,6 @@ app.set('view engine', 'pug');
     res.render('500.pug', {title:'500: Internal Server Error', error: error});
   });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+app.listen(process.env.PORT || 3000, function () {
+  console.log('Example app listening on port: ', http.address().port);
 });
