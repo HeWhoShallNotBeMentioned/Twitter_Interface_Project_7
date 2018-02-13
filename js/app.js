@@ -104,5 +104,5 @@ app.set('view engine', 'pug');
   });
 
 app.listen(process.env.PORT || 3000, function () {
-  console.log('Example app listening on port: ');
+  console.log('Example app listening on port: ', process.env.PORT);
 });
